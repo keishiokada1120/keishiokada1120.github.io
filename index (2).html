@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Keishi Okada Work Samples</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Two work samples by Keishi Okada: where frontier AI breaks, and how he uses AI to automate a GTM analysis for a hotel SaaS company.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+/* Layout: consulting slide sections (eyebrow, action title, heavy rule, evidence, source) on warm paper.
+   One deliberate light look, matching the author's own decks. */
+:root {
+  --paper: #FBFBF9; --white: #FFFFFF; --ink: #1B2430; --ink-2: #3A4350; --muted: #5C6470; --faint: #8E97A3;
+  --rule: #DADDE0; --rule-2: #ABAFB2; --box: #F1F2F4; --gray: #EEF0F3; --covid: #EDEEF2;
+  --bronze: #8A5E1C; --bronze-2: #C9B48F; --cream: #F6EEDF;
+  --slate: #3F5471; --midblue: #5A7190; --sky: #7F97B3; --steel: #A7B6C9; --pale: #CBD5DF;
+  --shadow: rgba(27, 36, 48, 0.18);
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 72px; font-variant-numeric: tabular-nums; -webkit-text-size-adjust: 100%;
+}
+a { color: var(--ink); }
+:focus-visible { outline: 2px solid var(--bronze); outline-offset: 2px; }
+button { font-family: inherit; }
+.wrap { max-width: 1200px; margin: 0 auto; }
+
+/* header */
+.site-header { padding-top: 20px; }
+.header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; text-decoration: none; }
+.brand-name { font-size: 16px; font-weight: 700; }
+.brand-sub { font-size: 13px; color: var(--muted); }
+.topnav { display: flex; flex-wrap: wrap; gap: 2px; }
+.topnav a { display: flex; gap: 8px; align-items: baseline; padding: 8px 12px; text-decoration: none; font-size: 13px; font-weight: 500; }
+.topnav a:hover { background: var(--box); }
+.topnav .num { color: var(--bronze); font-weight: 700; }
+.topnav a[aria-current="page"] { background: var(--cream); font-weight: 700; }
+
+/* slide sections */
+.slide { padding-top: 56px; display: flex; flex-direction: column; gap: 16px; }
+#view-ai > .slide:first-child, #view-gtm > .slide:first-child { padding-top: 32px; }
+.eyebrow-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 8px 16px; }
+.eyebrow { margin: 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bronze); font-weight: 700; line-height: 1.5; }
+.tag { flex: none; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: var(--white); background: var(--ink); padding: 4px 8px; }
+.title { margin: 8px 0 0; font-size: 26px; line-height: 1.28; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; max-width: 1120px; }
+h1.title { font-size: 26px; line-height: 1.28; }
+.title-rule { height: 2px; background: var(--ink); margin-top: 14px; }
+.source { margin: 0; font-size: 12px; line-height: 1.55; color: var(--muted); }
+.small { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.sowhat { background: var(--ink); color: var(--white); padding: 12px 16px; font-size: 15px; font-weight: 600; line-height: 1.45; display: flex; gap: 10px; align-items: baseline; }
+.ctitle { margin: 0; font-size: 15px; font-weight: 700; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.ctitle .unit { font-weight: 400; color: var(--muted); }
+.ask { border-left: 3px solid var(--bronze); background: var(--box); padding: 12px 16px; font-size: 15px; line-height: 1.55; max-width: 980px; }
+.verdict { display: flex; gap: 10px; align-items: baseline; padding: 9px 12px; background: var(--gray); font-size: 14px; line-height: 1.45; }
+.verdict.ok { background: var(--cream); }
+.verdict .mark { font-weight: 700; color: var(--bronze); }
+.verdict.ok .mark { color: var(--ink); }
+.sw { flex: none; display: inline-block; width: 10px; height: 10px; }
+.sw.dashed { background: var(--white); border: 1px dashed var(--faint); box-sizing: border-box; }
+.table-wrap { overflow-x: auto; }
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl th { text-align: left; padding: 8px 10px; font-size: 13px; font-weight: 700; color: var(--bronze); border-bottom: 1.5px solid var(--bronze); vertical-align: bottom; }
+.tbl td { padding: 10px; font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl .num { text-align: right; }
+.tbl.compact td { padding: 6px 8px; font-size: 13px; }
+.tbl.compact th { padding: 6px 8px; font-size: 12px; }
+.linkbtn { font: inherit; font-size: 12px; font-weight: 600; color: var(--ink); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+.pager { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 14px; }
+.pager a { text-decoration: none; font-weight: 600; }
+.pager .pn { color: var(--bronze); }
+
+/* landing */
+.intro { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px 48px; align-items: start; }
+.intro-text { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.lead { margin: 0; font-size: 17px; line-height: 1.65; max-width: 62ch; }
+.textlink { align-self: flex-start; font-size: 14px; font-weight: 600; }
+.contents { display: flex; flex-direction: column; border-bottom: 1px solid var(--rule); min-width: 0; }
+.contents a { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 0; padding: 12px 12px 12px 8px; border-top: 1px solid var(--rule); text-decoration: none; }
+.contents a:hover { background: var(--box); }
+.cn { font-size: 18px; font-weight: 700; color: var(--bronze); }
+.ct { font-size: 18px; font-weight: 700; }
+.cd { grid-column: 2; font-size: 14px; color: var(--muted); }
+.cgo { grid-column: 2; margin-top: 4px; font-size: 13px; font-weight: 600; }
+.p1 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+.p1-ai { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; }
+.p1-ai .verdict { max-width: 860px; }
+.stem { width: 0; height: 10px; border-left: 1.5px solid var(--faint); }
+.stem.ok { border-left-color: var(--bronze); }
+.bracket-top { align-self: stretch; height: 8px; border: 1.5px solid var(--faint); border-bottom: 0; margin-bottom: 8px; }
+.p1-right { grid-column: 3; display: flex; flex-direction: column; align-items: center; padding-top: 8px; }
+.p1-right .verdict { align-self: stretch; }
+.bracket-bottom { align-self: stretch; height: 8px; border: 1.5px solid var(--bronze); border-top: 0; }
+.qpanel { border: 1px solid var(--rule); background: var(--white); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.qpanel.outcome { border: 2px solid var(--bronze); padding: 13px 15px; }
+.qhead { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.qn { font-size: 13px; font-weight: 700; color: var(--muted); }
+.outcome .qn { color: var(--bronze); }
+.qtag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; background: var(--gray); color: var(--muted); }
+.outcome .qtag { background: var(--cream); color: var(--bronze); }
+.qtext { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.35; min-height: 2.7em; }
+.qbars { display: grid; grid-template-columns: 126px minmax(0, 1fr); gap: 9px 8px; align-items: center; }
+.ql { font-size: 13px; }
+.ql.b, .qv.b { font-weight: 700; }
+.qbar { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.qbar .fill { flex: none; height: 12px; background: var(--steel); }
+.outcome .qbar .fill { background: var(--bronze); }
+.qv { font-size: 12px; white-space: nowrap; }
+.p2 { display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start; }
+.p2-chart { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.p2-cards { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 12px; padding-top: 34px; }
+.eb-plot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); height: 266px; padding-top: 22px; box-sizing: border-box; border-bottom: 1px solid var(--rule-2); margin-top: 8px; }
+.eb-col { height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 8px; }
+.eb-bar { position: relative; width: 28%; }
+.eb-bar.internal { background: var(--steel); }
+.eb-bar.compiled { background: var(--ink); }
+.eb-bar span { position: absolute; bottom: 100%; left: -12px; right: -12px; padding-bottom: 3px; text-align: center; font-size: 12px; }
+.eb-bar.compiled span { font-weight: 700; }
+.eb-labels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center; font-size: 12px; line-height: 1.45; }
+.gap { color: var(--muted); }
+.gap.hot { color: var(--bronze); font-weight: 700; }
+.src-card { border: 1px solid var(--rule); background: var(--white); padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.src-card.ok { border: 2px solid var(--bronze); padding: 13px 15px; }
+.src-head { display: flex; gap: 8px; align-items: center; font-size: 15px; font-weight: 700; }
+.src-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.sw-internal, .sw-compiled { width: 12px; height: 12px; }
+.sw-internal { background: var(--steel); }
+.sw-compiled { background: var(--ink); }
+
+/* landing: the two mistakes */
+.mcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.mcard { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px; background: var(--white); border: 1px solid var(--rule); text-decoration: none; color: var(--ink); min-width: 0; }
+.mcard:hover { border-color: var(--ink); }
+.mc-top { display: flex; gap: 12px; align-items: baseline; }
+.mc-n { font-size: 22px; font-weight: 700; color: var(--bronze); }
+.mc-name { font-size: 19px; font-weight: 700; line-height: 1.3; }
+.mc-desc { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); }
+.mc-rows { display: flex; flex-direction: column; gap: 6px; }
+.mc-row { display: grid; grid-template-columns: 86px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 10px; background: var(--gray); font-size: 13px; }
+.mc-row.ok { background: var(--cream); }
+.who { font-weight: 700; }
+.tokens { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; min-width: 0; }
+.tok { display: inline-flex; align-items: center; gap: 5px; padding: 2px 7px; border: 1px solid var(--rule-2); background: var(--white); font-size: 12px; font-weight: 600; }
+.tok.hl { border-color: var(--bronze); color: var(--bronze); }
+.op { color: var(--muted); font-size: 12px; }
+.res { font-weight: 700; white-space: nowrap; font-size: 12.5px; }
+.res.bad { color: var(--bronze); }
+.mc-more { margin-top: auto; font-size: 13px; font-weight: 600; }
+.doc-ico { flex: none; width: 9px; height: 11px; box-sizing: border-box; border: 1px solid currentColor; padding: 2px 1px; background: repeating-linear-gradient(to bottom, currentColor 0 1px, transparent 1px 3px); background-clip: content-box; }
+
+/* landing: how the work worked */
+.ctx { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px 28px; align-items: start; }
+.ctx-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.ctx-h { margin: 0; display: flex; gap: 8px; align-items: baseline; font-size: 14px; font-weight: 700; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.ctx-n { color: var(--bronze); }
+.role { background: var(--white); border: 1px solid var(--rule); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.role-big { font-size: 20px; font-weight: 700; line-height: 1.2; }
+.role-at { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.role-stat { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; background: var(--cream); }
+.rs-n { font-size: 18px; font-weight: 700; color: var(--bronze); }
+.rs-t { font-size: 13px; }
+.role-what { margin: 0; font-size: 13.5px; line-height: 1.5; }
+.anatomy { display: flex; flex-direction: column; gap: 6px; }
+.layer { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 9px 12px; background: var(--white); border: 1px solid var(--rule); border-left: 4px solid var(--ink); font-size: 13px; line-height: 1.4; }
+.layer.l2 { margin-left: 8px; border-left-color: var(--slate); }
+.layer.l3 { margin-left: 16px; border-left-color: var(--bronze); }
+.layer.l4 { margin-left: 24px; border-left-color: var(--steel); }
+.lk { font-weight: 700; }
+.ld { color: var(--muted); }
+.cycle { display: grid; grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr); grid-template-rows: auto 26px auto; gap: 4px; }
+.cy-node { display: flex; gap: 6px; align-items: flex-start; padding: 9px 10px; background: var(--white); border: 1px solid var(--rule); font-size: 13px; line-height: 1.35; }
+.cy-node b { color: var(--bronze); }
+.cy-node.hl { border: 2px solid var(--bronze); background: var(--cream); padding: 8px 9px; }
+.cy-arr, .cy-mid { display: flex; align-items: center; justify-content: center; color: var(--faint); font-weight: 700; font-size: 15px; }
+.cy-mid { font-size: 18px; }
+
+/* GTM example: how it was built */
+.flow { display: grid; grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr); }
+.fstep { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; background: var(--white); border: 1px solid var(--rule); min-width: 0; }
+.fstep.ai { border: 2px solid var(--bronze); background: var(--cream); padding: 13px 15px; }
+.fs-top { display: flex; gap: 8px; align-items: baseline; }
+.fs-n { font-size: 15px; font-weight: 700; color: var(--bronze); }
+.fs-t { font-size: 16px; font-weight: 700; line-height: 1.3; }
+.fs-d { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.f-arr { display: flex; align-items: center; justify-content: center; color: var(--faint); font-weight: 700; font-size: 16px; }
+.f-arr::before { content: "\2192"; }
+.mypart { padding: 10px 14px; background: var(--box); border-left: 3px solid var(--ink); font-size: 14px; line-height: 1.5; }
+
+/* controls */
+.controls { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; padding: 12px 14px; background: var(--box); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
+.ctl-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.segbtns { display: flex; flex-wrap: wrap; border: 1px solid var(--ink); background: var(--white); }
+.segbtns button { padding: 7px 12px; font-size: 13px; border: 0; background: var(--white); color: var(--ink); cursor: pointer; }
+.segbtns button + button { border-left: 1px solid var(--ink); }
+.segbtns button[aria-pressed="true"] { background: var(--ink); color: var(--white); font-weight: 600; }
+.segbtns button:disabled { color: var(--faint); cursor: not-allowed; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; font-size: 13px; background: var(--white); color: var(--faint); border: 1px solid var(--rule); cursor: pointer; }
+.chip[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+.chip.single { color: var(--ink); border-color: var(--rule-2); }
+.chip.single[aria-pressed="true"] { background: var(--ink); color: var(--white); border-color: var(--ink); font-weight: 600; }
+.ctl-note { margin: 0; flex-basis: 100%; font-size: 12px; color: var(--muted); }
+
+/* market chart */
+.chart-row { display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: flex-start; }
+.chart-main { flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.chart-side { flex: 0 1 290px; min-width: 250px; padding-top: 70px; }
+.readout { margin: 0; font-size: 14px; color: var(--ink-2); }
+.chart-wrap { position: relative; }
+.chart-wrap svg { display: block; max-width: 100%; }
+svg text { font-family: var(--font); }
+.covid { fill: var(--covid); }
+.t-covid { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; fill: var(--muted); }
+.t-br { font-size: 12px; font-weight: 600; fill: var(--muted); }
+.br { fill: none; stroke: var(--faint); stroke-width: 1; }
+.divider { stroke: var(--rule-2); stroke-dasharray: 3 3; }
+.dash { fill: var(--white); stroke: var(--faint); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.sep { stroke: var(--paper); stroke-width: 1; }
+.t-in { font-size: 11px; }
+.t-tot { font-size: 11.5px; font-weight: 700; fill: var(--ink); }
+.t-yr { font-size: 11px; fill: var(--ink); }
+.axis { stroke: var(--rule-2); stroke-width: 1; }
+.hit { fill: var(--ink); fill-opacity: 0; cursor: crosshair; }
+.hit.on { fill-opacity: 0.06; }
+.tip { position: absolute; z-index: 5; pointer-events: none; background: var(--ink); color: var(--white); padding: 8px 10px; font-size: 12px; line-height: 1.4; min-width: 170px; box-shadow: 0 2px 8px var(--shadow); }
+.tip .th { font-weight: 700; margin-bottom: 4px; }
+.tip .tr { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.tip .tt { border-top: 1px solid var(--midblue); margin-top: 4px; padding-top: 4px; font-weight: 700; }
+.tip .sw.dashed { background: transparent; border-color: var(--pale); }
+.tip .tvv { text-align: right; }
+.leg { width: 100%; border-collapse: collapse; font-size: 13px; }
+.leg th { font-size: 11.5px; font-weight: 700; text-align: right; padding: 0 0 6px 8px; line-height: 1.3; vertical-align: bottom; }
+.leg thead tr:last-child th { border-bottom: 1px solid var(--rule); }
+.leg th.grp { text-align: center; padding-bottom: 2px; }
+.leg td { padding: 7px 0 7px 8px; border-bottom: 1px solid var(--rule); text-align: right; white-space: nowrap; }
+.leg td:first-child, .leg th:first-child { text-align: left; padding-left: 0; white-space: normal; }
+.leg .name { display: inline-flex; align-items: center; gap: 8px; }
+.leg .name.hl { color: var(--bronze); font-weight: 700; }
+.leg tr.total td { font-weight: 700; }
+details.datatable summary { cursor: pointer; font-size: 13px; font-weight: 600; }
+details.datatable .table-wrap { margin-top: 8px; max-height: 360px; overflow: auto; }
+
+/* scoring */
+.score-block { display: flex; flex-direction: column; gap: 10px; }
+.score-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
+.score-head .ctitle { border: 0; padding: 0; }
+.wstatus { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; font-size: 12px; color: var(--muted); }
+.tbl.score { min-width: 800px; }
+.tbl.score th .wl { display: block; }
+.wwrap { display: inline-flex; align-items: center; gap: 3px; margin-top: 6px; color: var(--ink); font-weight: 600; font-size: 12px; }
+.wbox { width: 48px; box-sizing: border-box; padding: 2px 4px; font-size: 12px; font-weight: 600; color: var(--ink); background: var(--white); border: 1px solid var(--rule-2); text-align: right; }
+.wbox[aria-invalid="true"] { border-color: var(--bronze); outline: 1px solid var(--bronze); }
+.tbl th.grp { text-align: center; border-bottom: 1px solid var(--bronze); }
+.tbl th.nob { border-bottom: 0; }
+.tbl.score td.seg { font-weight: 700; }
+.tbl.score tr.hl td { background: var(--cream); }
+.cellv { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.note { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.hb { flex: none; display: inline-block; width: 14px; height: 14px; border-radius: 50%; box-sizing: border-box; border: 1.5px solid var(--ink); background: conic-gradient(var(--ink) 0 var(--p), var(--white) var(--p) 100%); }
+.tier { display: inline-block; padding: 3px 8px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.tier.t1 { background: var(--bronze); color: var(--white); }
+.tier.t2 { border: 1px solid var(--ink); }
+.tier.t3 { border: 1px solid var(--rule); color: var(--faint); }
+.score-lower { display: flex; flex-wrap: wrap; gap: 24px 36px; align-items: flex-start; }
+.bubble-box { flex: 0 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.how-box { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.tiers, .legend-inline { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; }
+.tiers span, .legend-inline span { display: inline-flex; align-items: center; gap: 6px; }
+#sc-bubble svg { width: 100%; height: auto; display: block; }
+.plot { fill: var(--white); stroke: var(--rule); }
+.mid { stroke: var(--rule-2); stroke-dasharray: 4 4; }
+.t-ax { font-size: 11px; fill: var(--muted); }
+.t-axt { font-size: 12px; font-weight: 700; fill: var(--ink); }
+.t-q { font-size: 11px; fill: var(--muted); }
+.t-q.hot { fill: var(--bronze); font-weight: 700; }
+.bub { fill-opacity: 0.92; stroke: var(--white); stroke-width: 2; }
+.t-lab { font-size: 12px; font-weight: 700; fill: var(--ink); }
+.rules { list-style: none; margin: 0; padding: 0; }
+.rules li { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 13px; line-height: 1.5; }
+.rules li span { color: var(--muted); }
+
+/* shared */
+.lead-sm { margin: 0; font-size: 15px; line-height: 1.6; max-width: 860px; }
+
+@media (max-width: 900px) {
+  .chart-side { flex: 1 1 100%; padding-top: 0; }
+}
+@media (max-width: 760px) {
+  .flow { grid-template-columns: minmax(0, 1fr); }
+  .f-arr { height: 22px; }
+  .f-arr::before { content: "\2193"; }
+}
+@media (max-width: 820px) {
+  .p1 { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
+  .p1-right { grid-column: 1; padding-top: 0; }
+  .stem, .bracket-top, .bracket-bottom { display: none; }
+}
+@media (max-width: 700px) {
+  .title { font-size: 21px; }
+  h1.title { font-size: 21px; }
+  .slide { padding-top: 44px; }
+  .lead { font-size: 16px; }
+  .p2-cards { padding-top: 0; }
+  .rules li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .qbars { grid-template-columns: 112px minmax(0, 1fr); }
+  .mc-row { grid-template-columns: 76px minmax(0, 1fr); }
+  .mc-row .res { grid-column: 2; }
+  .layer { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="#where-ai-breaks"><span class="brand-name">Keishi Okada</span><span class="brand-sub">Work samples</span></a>
+    <nav class="topnav" aria-label="Work samples">
+      <a href="#where-ai-breaks" data-view="ai"><span class="num">01</span>Where AI breaks</a>
+      <a href="#hotel-gtm" data-view="gtm"><span class="num">02</span>Hotel SaaS GTM example</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="view-ai"><section class="slide"><div class="slide-head"><div class="eyebrow-row"><p class="eyebrow">About these work samples</p></div><h1 class="title">My work is AI native, so these two samples show both sides: where frontier AI breaks, and how I use it to automate a GTM analysis</h1><div class="title-rule"></div></div><div class="intro"><div class="intro-text"><p class="lead">AI does the data work and builds the output. I own the question, the judgment calls and the final check, and knowing where models break tells me where to look.</p></div><nav class="contents" aria-label="The two samples"><a href="#how-the-work-worked"><span class="cn">01</span><span class="ct">Where AI breaks</span><span class="cd">Two mistakes frontier models make on finance work, from writing problems they could not solve at Halluminate</span><span class="cgo">Read below ↓</span></a><a href="#hotel-gtm"><span class="cn">02</span><span class="ct">Hotel SaaS GTM example</span><span class="cd">How I used AI to turn raw market data into a live answer on which hotel segment a hotel SaaS company should sell to first</span><span class="cgo">Open the example →</span></a></nav></div></section><section class="slide" id="how-the-work-worked"><div class="slide-head"><div class="eyebrow-row"><p class="eyebrow">Where AI breaks · How the work worked</p></div><h2 class="title">At Halluminate, I wrote realistic finance problems with expert answers, so every model failure becomes something the next model can learn from</h2><div class="title-rule"></div></div><div class="ctx"><div class="ctx-col"><p class="ctx-h"><span class="ctx-n">1</span>My role</p><div class="role"><span class="role-big">Problem author</span><span class="role-at">Halluminate, a Y Combinator startup that builds reinforcement learning environments for financial services</span><div class="role-stat"><span class="rs-n">Top author</span><span class="rs-t">among about 300 expert consultants, at peak</span></div><p class="role-what">I wrote realistic finance and consulting problems that frontier models could not solve.</p></div></div><div class="ctx-col"><p class="ctx-h"><span class="ctx-n">2</span>What one problem contains</p><div class="anatomy"><div class="layer l1"><span class="lk">The ask</span><span class="ld">A realistic request, written the way a client or deal team would</span></div><div class="layer l2"><span class="lk">Input files</span><span class="ld">The data, statements or models an analyst would receive</span></div><div class="layer l3"><span class="lk">Expert answer</span><span class="ld">The right answer, worked out by a professional</span></div><div class="layer l4"><span class="lk">Grading rubric</span><span class="ld">How the model's work is scored against that answer</span></div></div></div><div class="ctx-col"><p class="ctx-h"><span class="ctx-n">3</span>Why it matters</p><div class="cycle" role="img" aria-label="The model tries the problem, its answer is graded against the expert answer, each failure becomes training signal, and the next model does better"><div class="cy-node"><b>1</b><span>The model tries the problem</span></div><span class="cy-arr">→</span><div class="cy-node"><b>2</b><span>Its answer is graded against the expert answer</span></div><span class="cy-arr">↑</span><span class="cy-mid">↻</span><span class="cy-arr">↓</span><div class="cy-node hl"><b>4</b><span>The next model does better</span></div><span class="cy-arr">←</span><div class="cy-node"><b>3</b><span>Each failure becomes training signal</span></div></div></div></div><div class="sowhat"><span aria-hidden="true">→</span><span>A useful problem is one the model fails for a reason a professional would recognize, and two such reasons kept coming back</span></div></section><section class="slide"><div class="slide-head"><div class="eyebrow-row"><p class="eyebrow">Where AI breaks · What I found</p><span class="tag">Illustrative</span></div><h2 class="title">Across those problems, frontier AI made two kinds of mistakes that look like competence at first glance</h2><div class="title-rule"></div></div><div class="mcards"><a class="mcard" href="#pattern-1"><div class="mc-top"><span class="mc-n">01</span><span class="mc-name">Following keywords instead of logic</span></div><p class="mc-desc">Treats every input that sounds related as relevant and blends them, instead of asking which one actually answers the question.</p><div class="mc-rows"><div class="mc-row"><span class="who">AI</span><span class="tokens"><span class="tok">Q1</span><span class="op">+</span><span class="tok">Q2</span><span class="op">+</span><span class="tok">Q3</span><span class="op">÷ 3</span></span><span class="res bad">× Wrong channel</span></div><div class="mc-row ok"><span class="who">Professional</span><span class="tokens"><span class="tok hl">Q3, the outcome</span></span><span class="res good">○ Right channel</span></div></div><span class="mc-more">See the example ↓</span></a><a class="mcard" href="#pattern-2"><div class="mc-top"><span class="mc-n">02</span><span class="mc-name">Missing the unwritten rules</span></div><p class="mc-desc">Trusts the more detailed source, without knowing which source a professional relies on when the numbers do not tie.</p><div class="mc-rows"><div class="mc-row"><span class="who">AI</span><span class="tokens"><span class="tok doc"><span class="doc-ico" aria-hidden="true"></span>Internal summary</span><span class="op">more detail</span></span><span class="res bad">× EBITDA overstated</span></div><div class="mc-row ok"><span class="who">Professional</span><span class="tokens"><span class="tok doc hl"><span class="doc-ico" aria-hidden="true"></span>Compiled statements</span></span><span class="res good">○ Reliable EBITDA</span></div></div><span class="mc-more">See the example ↓</span></a></div><p class="source">Note · Examples and numbers on this page are invented to show each pattern. They are not actual problems.</p></section><section class="slide" id="pattern-1"><div class="slide-head"><div class="eyebrow-row"><p class="eyebrow">Pattern 1 · Following keywords instead of logic</p></div><h2 class="title">AI averages all three questions because they look related, but only one of them measures the outcome the client asked about</h2><div class="title-rule"></div></div><div class="ask"><strong>The ask.</strong> A pharma brand team wants to know which marketing channel works best. A survey asked 400 physicians three questions about five channels.</div><p class="ctitle">Share of physicians choosing each channel <span class="unit">(%, n = 400, invented data)</span></p><div class="p1"><div class="p1-ai"><div class="verdict"><span class="mark">×</span><span><strong>What AI does:</strong> averages all three questions, because they all mention information sources. <strong>Sales rep visits</strong> come first, with an average of 42.7%.</span></div><div class="stem" aria-hidden="true"></div><div class="bracket-top" aria-hidden="true"></div></div><div class="qpanel"><div class="qhead"><span class="qn">Q1</span><span class="qtag">Process metric</span></div><p class="qtext">Which sources do you use most often?</p><div class="qbars" role="img" aria-label="Q1: share of physicians choosing each channel"><span class="ql">Sales rep visits</span><div class="qbar"><div class="fill" style="width: 62%"></div><span class="qv">62%</span></div><span class="ql b">Email updates</span><div class="qbar"><div class="fill" style="width: 71%"></div><span class="qv b">71%</span></div><span class="ql">Medical conferences</span><div class="qbar"><div class="fill" style="width: 30%"></div><span class="qv">30%</span></div><span class="ql">Peer webinars</span><div class="qbar"><div class="fill" style="width: 24%"></div><span class="qv">24%</span></div><span class="ql">Journal ads</span><div class="qbar"><div class="fill" style="width: 38%"></div><span class="qv">38%</span></div></div></div><div class="qpanel"><div class="qhead"><span class="qn">Q2</span><span class="qtag">Process metric</span></div><p class="qtext">Which sources do you rely on most?</p><div class="qbars" role="img" aria-label="Q2: share of physicians choosing each channel"><span class="ql b">Sales rep visits</span><div class="qbar"><div class="fill" style="width: 48%"></div><span class="qv b">48%</span></div><span class="ql">Email updates</span><div class="qbar"><div class="fill" style="width: 35%"></div><span class="qv">35%</span></div><span class="ql">Medical conferences</span><div class="qbar"><div class="fill" style="width: 44%"></div><span class="qv">44%</span></div><span class="ql">Peer webinars</span><div class="qbar"><div class="fill" style="width: 31%"></div><span class="qv">31%</span></div><span class="ql">Journal ads</span><div class="qbar"><div class="fill" style="width: 22%"></div><span class="qv">22%</span></div></div></div><div class="qpanel outcome"><div class="qhead"><span class="qn">Q3</span><span class="qtag">Outcome metric</span></div><p class="qtext">Which source led you to start prescribing a new drug?</p><div class="qbars" role="img" aria-label="Q3: share of physicians choosing each channel"><span class="ql">Sales rep visits</span><div class="qbar"><div class="fill" style="width: 18%"></div><span class="qv">18%</span></div><span class="ql">Email updates</span><div class="qbar"><div class="fill" style="width: 9%"></div><span class="qv">9%</span></div><span class="ql">Medical conferences</span><div class="qbar"><div class="fill" style="width: 26%"></div><span class="qv">26%</span></div><span class="ql b">Peer webinars</span><div class="qbar"><div class="fill" style="width: 41%"></div><span class="qv b">41%</span></div><span class="ql">Journal ads</span><div class="qbar"><div class="fill" style="width: 6%"></div><span class="qv">6%</span></div></div></div><div class="p1-right"><div class="bracket-bottom" aria-hidden="true"></div><div class="stem ok" aria-hidden="true"></div><div class="verdict ok"><span class="mark">○</span><span><strong>What a consultant does:</strong> uses only Q3, the outcome the client asked about. <strong>Peer webinars</strong> come first, at 41%.</span></div></div></div><div class="sowhat"><span aria-hidden="true">→</span><span>Q1 and Q2 show what physicians consume and trust; only Q3 shows what changed their behavior, so the answer is peer webinars, not sales rep visits</span></div><p class="source">Source · Invented survey for illustration: 400 physicians, five channels, three questions. Not an actual problem.</p></section><section class="slide" id="pattern-2"><div class="slide-head"><div class="eyebrow-row"><p class="eyebrow">Pattern 2 · Missing the unwritten rules</p></div><h2 class="title">AI picks the internal summary because it has more detail, but when the two sources do not tie, the compiled financial statements win</h2><div class="title-rule"></div></div><div class="ask"><strong>The ask.</strong> A buyer is valuing a packaging manufacturer. The data room holds a monthly internal financial summary and unaudited compiled annual financial statements, and their EBITDA does not tie.</div><div class="p2"><div class="p2-chart"><p class="ctitle">EBITDA from each source <span class="unit">(USD M, invented data)</span></p><div class="eb-plot" role="img" aria-label="Invented EBITDA: internal summary 14.2, 16.8 and 19.5 against compiled statements 12.9, 13.7 and 14.6"><div class="eb-col"><div class="eb-bar internal" style="height: 71.00%"><span>14.2</span></div><div class="eb-bar compiled" style="height: 64.50%"><span>12.9</span></div></div><div class="eb-col"><div class="eb-bar internal" style="height: 84.00%"><span>16.8</span></div><div class="eb-bar compiled" style="height: 68.50%"><span>13.7</span></div></div><div class="eb-col"><div class="eb-bar internal" style="height: 97.50%"><span>19.5</span></div><div class="eb-bar compiled" style="height: 73.00%"><span>14.6</span></div></div></div><div class="eb-labels"><span>FY2022<br><span class="gap">gap 1.3</span></span><span>FY2023<br><span class="gap">gap 3.1</span></span><span>FY2024<br><span class="gap hot">gap 4.9</span></span></div><p class="small">The two sources drift further apart every year.</p></div><div class="p2-cards"><div class="src-card"><div class="src-head"><span class="sw sw-internal"></span><span>Internal financial summary</span></div><p>Monthly, broken out by product and region, prepared by management</p><div class="verdict"><span class="mark">×</span><span><strong>What AI does:</strong> picks this one, because it has more detail</span></div></div><div class="src-card ok"><div class="src-head"><span class="sw sw-compiled"></span><span>Unaudited compiled financial statements</span></div><p>Annual, prepared on an accrual basis by an outside accountant, not audited</p><div class="verdict ok"><span class="mark">○</span><span><strong>What a professional does:</strong> trusts this one when the two do not tie</span></div></div></div></div><div class="sowhat"><span aria-hidden="true">→</span><span>Nobody writes this rule down: when the numbers do not tie and you cannot see how the internal ones were built, the compiled statements win, even unaudited</span></div><p class="source">Source · Invented financials for illustration. Not an actual problem.</p></section></div>
+
+  <div id="view-gtm" hidden>
+    <section class="slide" id="hotel-gtm-top"><div class="slide-head"><div class="eyebrow-row"><p class="eyebrow">Hotel SaaS GTM example · How I built it</p><span class="tag">Real market data</span></div><h1 class="title">I used AI to turn raw market data into a live answer on where a hotel SaaS company should sell first</h1><div class="title-rule"></div></div><div class="ask"><strong>The ask.</strong> A fictional SaaS company sells U.S. hotels an AI that answers guest messages. Which hotel segment should it sell to first?</div><p class="ctitle">How I built the analysis</p><div class="flow" role="list"><div class="fstep" role="listitem"><div class="fs-top"><span class="fs-n">1</span><span class="fs-t">Raw data</span></div><p class="fs-d">Euromonitor hotel sales by segment from 2012 to 2031, company and brand shares, and a Mintel survey of 2,000 U.S. adults</p></div><span class="f-arr" aria-hidden="true"></span><div class="fstep ai" role="listitem"><div class="fs-top"><span class="fs-n">2</span><span class="fs-t">Built with Claude</span></div><p class="fs-d">Read the raw exports, tied every segment to one total, matched the survey to the segments and scored each segment on five criteria</p></div><span class="f-arr" aria-hidden="true"></span><div class="fstep" role="listitem"><div class="fs-top"><span class="fs-n">3</span><span class="fs-t">Live answer</span></div><p class="fs-d">Change a weight in the scoring below, and the ranking, the chart and the headline update on their own</p></div></div><div class="mypart"><strong>My part:</strong> the question, what counts and how much, and the final check where models tend to slip</div><div class="sowhat"><span aria-hidden="true">→</span><span>The answer: start with upscale, a $56B segment expected to grow 4.4% a year to 2031, where five groups hold 93% of sales, then mid market</span></div><p class="source">Source · Euromonitor Passport and Mintel, with details below · The company is fictional</p></section>
+          <section class="slide" id="gtm-market">
+            <div class="slide-head"><div class="eyebrow-row"><p class="eyebrow">Market and segments · U.S. hotel sales</p></div>
+              <h2 class="title">U.S. hotel sales fell by half in 2020, passed 2019 levels in 2023, and are expected to reach $220B by 2031</h2><div class="title-rule"></div></div>
+            <div class="controls">
+              <div class="ctl" role="group" aria-label="View by"><span class="ctl-label">View by</span>
+                <div class="segbtns" id="mk-view"><button type="button" data-mode="segment" aria-pressed="true">Segment</button><button type="button" data-mode="company" aria-pressed="false">Company</button><button type="button" data-mode="brand" aria-pressed="false">Brand</button></div></div>
+              <div class="ctl" role="group" aria-label="Show"><span class="ctl-label">Show</span><div class="chips" id="mk-chips"></div></div>
+              <div class="ctl" role="group" aria-label="Period"><span class="ctl-label">Period</span>
+                <div class="segbtns" id="mk-period"><button type="button" data-period="past" aria-pressed="false">Past · 2012 to 2025</button><button type="button" data-period="outlook" aria-pressed="false">Outlook · 2025 to 2031</button><button type="button" data-period="both" aria-pressed="true">Both</button></div></div>
+              <p class="ctl-note" id="mk-note"></p>
+            </div>
+            <div class="chart-row">
+              <div class="chart-main">
+                <p class="ctitle" id="mk-ctitle">U.S. hotel sales by segment <span class="unit">(USD B, current prices)</span></p>
+                <p class="readout" id="mk-readout"></p>
+                <div class="chart-wrap" id="mk-chart"></div>
+                <details class="datatable"><summary>Show the numbers</summary><div class="table-wrap" id="mk-table"></div></details>
+              </div>
+              <div class="chart-side"><div id="mk-legend"></div><p class="small" id="mk-legnote" style="margin-top: 10px">Upscale is the priority segment from the scoring below.</p></div>
+            </div>
+            <p class="source" id="mk-source"></p>
+          </section>
+
+          <section class="slide" id="gtm-scoring">
+            <div class="slide-head"><div class="eyebrow-row"><p class="eyebrow">Market and segments · Segment scoring</p></div>
+              <h2 class="title" id="sc-title">Upscale is large, growing and concentrated in five groups, so it scores highest, with mid market and luxury next</h2><div class="title-rule"></div></div>
+            <div class="score-block">
+              <div class="score-head"><p class="ctitle">Segment scoring <span class="unit">(weights in boxes, editable)</span></p>
+                <div class="wstatus"><span id="w-status">Weights add to 100%</span><button type="button" class="linkbtn" id="w-reset">Reset weights</button></div></div>
+              <div class="table-wrap"><table class="tbl score">
+                <thead>
+                  <tr><th class="nob"></th><th colspan="3" class="grp" id="g-attr">Market attractiveness · 50%</th><th colspan="2" class="grp" id="g-ab">Ability to win · 50%</th><th colspan="2" class="nob"></th></tr>
+                  <tr><th>Segment</th>
+                    <th><label class="wl" for="w-size">Sales, 2025</label><span class="wwrap"><input class="wbox" id="w-size" type="number" min="0" max="100" step="5" value="20" inputmode="numeric">%</span></th>
+                    <th><label class="wl" for="w-growth">Growth, '25 to '31</label><span class="wwrap"><input class="wbox" id="w-growth" type="number" min="0" max="100" step="5" value="20" inputmode="numeric">%</span></th>
+                    <th><label class="wl" for="w-service">Guests who value service</label><span class="wwrap"><input class="wbox" id="w-service" type="number" min="0" max="100" step="5" value="10" inputmode="numeric">%</span></th>
+                    <th><label class="wl" for="w-reach">Sales held by top five groups</label><span class="wwrap"><input class="wbox" id="w-reach" type="number" min="0" max="100" step="5" value="25" inputmode="numeric">%</span></th>
+                    <th><label class="wl" for="w-fit">Fit for AI guest messaging</label><span class="wwrap"><input class="wbox" id="w-fit" type="number" min="0" max="100" step="5" value="25" inputmode="numeric">%</span></th>
+                    <th class="num">Score of 5</th><th>Priority</th></tr>
+                </thead>
+                <tbody id="sc-body"></tbody>
+              </table></div>
+            </div>
+            <div class="score-lower">
+              <div class="bubble-box"><p class="ctitle">Attractiveness against ability to win <span class="unit">(score of 5, bubble = 2025 sales)</span></p>
+                <div class="tiers"><span><span class="sw" style="background: var(--bronze)"></span>Tier 1</span><span><span class="sw" style="background: var(--slate)"></span>Tier 2</span><span><span class="sw" style="background: var(--steel)"></span>Tier 3</span></div>
+                <div id="sc-bubble"></div></div>
+              <div class="how-box"><p class="ctitle">How scores work <span class="unit">(1 to 5, ○ = 1, ● = 5)</span></p>
+                <ul class="rules">
+                  <li><strong>Sales, 2025</strong><span>under $10B = 1, $10B to $15B = 2, $15B to $25B = 3, $25B to $50B = 4, $50B or more = 5</span></li>
+                  <li><strong>Growth, '25 to '31</strong><span>under 2% = 1, then one point per percentage point, up to 5% or more = 5</span></li>
+                  <li><strong>Guests who value service</strong><span>under 15% = 1, then one point per 10 points, up to 45% or more = 5</span></li>
+                  <li><strong>Sales held by top five groups</strong><span>under 30% = 1, then one point per 15 points, up to 75% or more = 5</span></li>
+                  <li><strong>Fit for AI guest messaging</strong><span>the author's judgment</span></li>
+                </ul>
+                <p class="small">Change the weights in the table to see how the priority moves. Tier 1 is a score of 4 or more, tier 2 is 3 or more.</p></div>
+            </div>
+            <div class="sowhat"><span aria-hidden="true">→</span><span id="sc-sowhat">The answer holds: upscale ties or beats every other segment on every criterion except growth, where luxury leads, so it stays first under almost any weights</span></div>
+            <p class="source">Source · Euromonitor Passport, U.S. hotel sales and brand shares by segment, 2025, and forecast to 2031, current USD · Mintel, Hotels and Accommodations US 2024: share of 2,000 adults who describe each hotel type as having good service; Mintel's upscale and upper upscale, midscale, and economy types are matched to Upscale, Mid market and Budget; *Unrated uses independent and boutique hotels, the closest type · Fit for AI guest messaging is the author's judgment</p>
+          </section>
+  </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var D = {"seg":{"years":[2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031],"lastActual":2025,"est":[],"order":["Budget","Mid market","Upscale","Luxury","Unrated"],"chipOrder":["Luxury","Upscale","Mid market","Budget","Unrated"],"series":{"Budget":[7486.0,7803.2,8234.1,8759.0,9067.5,9462.6,10030.9,10261.6,6636.7,8735.5,9716.5,9483.3,9215.9,9016.1,8961.3,9190.7,9488.8,9805.6,10168.1,10571.0],"Mid market":[52197.1,53152.0,54404.7,58385.7,58277.7,58852.0,61494.5,65893.0,36233.6,55441.0,68624.9,73662.0,75164.7,75714.0,77313.9,79174.8,81608.5,84053.7,86798.6,89865.1],"Upscale":[31948.6,35235.3,37816.9,39841.0,41931.5,44119.2,46778.8,48061.3,19003.1,33030.6,46708.7,51814.3,53990.6,55924.7,58310.1,60642.9,63320.6,66090.4,69177.6,72593.9],"Luxury":[12566.7,13887.9,15144.7,16717.1,19796.3,20332.7,21741.7,22785.4,7670.0,14040.2,19998.9,22545.1,25070.1,26460.6,27879.1,29211.4,30724.8,32308.8,33968.8,35721.4],"Unrated":[6479.2,6826.3,7161.0,7551.2,7894.1,8194.0,8439.9,8676.2,5858.8,7803.4,9147.9,9596.2,9740.1,9867.8,9945.4,10190.6,10496.5,10791.6,11099.5,11434.7]},"total":[110677.6,116904.7,122761.4,131254.0,136967.1,140960.5,148485.8,155677.5,75402.2,119050.7,154196.9,167100.9,173181.4,176983.2,182409.8,188410.4,195639.2,203050.1,211212.6,220186.1]},"comp":{"years":[2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],"lastActual":2025,"est":[2026],"order":["Marriott","Hilton","IHG","Choice","Hyatt","Wyndham","All others"],"chipOrder":["Marriott","Hilton","IHG","Choice","Hyatt","Wyndham","All others"],"series":{"Marriott":[33920.7,35235.1,36830.5,15964.1,26158.7,36992.7,40215.6,42800.5,44184.2,45935.5],"Hilton":[24351.4,26299.9,27964.1,12719.2,21520.9,29892.1,33453.6,34604.8,35562.5,36808.2],"IHG":[12200.2,12716.5,13135.2,6900.4,10351.2,13068.0,15048.8,15399.2,15529.9,16108.0],"Choice":[7444.6,7976.6,8309.6,5271.7,7636.0,9578.2,9755.2,9895.5,9705.0,9524.2],"Hyatt":[5652.5,6489.3,6570.4,2406.6,4681.8,6963.5,7974.6,8495.0,8996.8,9455.1],"Wyndham":[6149.6,6552.4,9153.4,5134.8,7704.5,9597.8,9465.5,9237.6,8852.9,8815.4],"All others":[51241.5,53216.0,53714.3,27005.4,40997.6,48104.6,51187.6,52748.8,54151.9,55763.4]},"total":[140960.5,148485.8,155677.5,75402.2,119050.7,154196.9,167100.9,173181.4,176983.2,182409.8]},"brand":{"years":[2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],"lastActual":2025,"est":[2026],"order":["Hampton Inn","Hilton","Hyatt","Holiday Inn Express","Marriott","Courtyard","All other brands"],"chipOrder":["Hampton Inn","Hilton","Hyatt","Holiday Inn Express","Marriott","Courtyard","All other brands"],"owner":{"Hampton Inn":"Hilton","Hilton":"Hilton","Hyatt":"Hyatt","Holiday Inn Express":"IHG","Marriott":"Marriott","Courtyard":"Marriott"},"series":{"Hampton Inn":[6953.4,7191.0,7418.0,3866.6,6417.1,8209.6,9015.4,9101.8,9065.1,9298.3],"Hilton":[6577.7,7121.1,7539.2,3021.3,4999.6,7461.5,8402.9,8539.7,8718.9,8987.7],"Hyatt":[5500.4,6260.1,6334.4,2319.8,4499.8,6681.3,7647.2,8129.9,8604.4,9029.4],"Holiday Inn Express":[5036.4,5297.5,5770.1,3299.0,5175.4,6424.1,7370.5,7535.1,7608.3,7706.7],"Marriott":[6625.4,6384.1,6364.0,2006.2,3624.3,5274.8,5977.6,6249.7,6437.5,6717.3],"Courtyard":[5144.4,5313.4,5390.6,2356.4,3763.9,5192.9,5670.1,5796.2,5791.4,6025.1],"All other brands":[105122.8,110918.6,116861.2,58532.9,90570.6,114952.7,123017.2,127829.0,130757.6,134645.3]},"total":[140960.5,148485.8,155677.5,75402.2,119050.7,154196.9,167100.9,173181.4,176983.2,182409.8]},"score":[{"idx":0,"name":"Upscale","sales":55.925,"growth":0.04444,"svc":0.477,"top5":0.9327,"fit":4,"fitNote":"Many routine requests, stretched staff","svcProxy":false},{"idx":1,"name":"Mid market","sales":75.714,"growth":0.02897,"svc":0.3245,"top5":0.6827,"fit":4,"fitNote":"Lean front desks, simple questions","svcProxy":false},{"idx":2,"name":"Luxury","sales":26.461,"growth":0.05129,"svc":0.4885,"top5":0.4982,"fit":2,"fitNote":"Guests expect a person, not AI","svcProxy":false},{"idx":3,"name":"Budget","sales":9.016,"growth":0.02687,"svc":0.205,"top5":0.8029,"fit":2,"fitNote":"Little budget for software","svcProxy":false},{"idx":4,"name":"Unrated","sales":9.868,"growth":0.02487,"svc":0.3325,"top5":null,"fit":2,"fitNote":"Scattered owners, hard to reach","svcProxy":true}]};
+  var MINUS = '−';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function rnd(x, nd) { var f = Math.pow(10, nd || 0); return Math.sign(x) * Math.round(Math.abs(x) * f + 1e-9) / f; }
+  function num(x, nd, sign) {
+    nd = nd || 0;
+    var v = rnd(x, nd);
+    var s = Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: nd, maximumFractionDigits: nd });
+    if (v < 0) return MINUS + s;
+    if (sign && v > 0) return '+' + s;
+    return s;
+  }
+  function pct(x, nd, sign) { return num(x * 100, nd === undefined ? 1 : nd, sign) + '%'; }
+  function cagr(a, b, n) { return Math.pow(b / a, 1 / n) - 1; }
+  function lc(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
+  function joinAnd(a) { return a.length <= 1 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
+  function money(x) { return (x < 0 ? MINUS : '') + '$' + Math.abs(x).toFixed(2); }
+  function smoney(x) { return Math.abs(x) < 0.005 ? '$0.00' : (x > 0 ? '+' : MINUS) + '$' + Math.abs(x).toFixed(2); }
+
+  /* ---------------------------------------------------------------- series colors */
+  var COL = {
+    segment: { 'Budget': 'var(--ink)', 'Mid market': 'var(--slate)', 'Upscale': 'var(--bronze)', 'Luxury': 'var(--steel)', 'Unrated': null },
+    company: { 'Marriott': 'var(--ink)', 'Hilton': 'var(--slate)', 'IHG': 'var(--midblue)', 'Choice': 'var(--sky)', 'Hyatt': 'var(--steel)', 'Wyndham': 'var(--pale)', 'All others': null },
+    brand: {}
+  };
+  var SHADES = ['var(--ink)', 'var(--slate)', 'var(--midblue)', 'var(--sky)', 'var(--steel)', 'var(--pale)'];
+  D.brand.order.forEach(function (n, i) { COL.brand[n] = n === 'All other brands' ? null : SHADES[i]; });
+  var DARK = { 'var(--ink)': 1, 'var(--slate)': 1, 'var(--midblue)': 1, 'var(--bronze)': 1 };
+  var CFG = { segment: D.seg, company: D.comp, brand: D.brand };
+  function swatch(mode, n) { var c = COL[mode][n]; return c ? '<span class="sw" style="background:' + c + '"></span>' : '<span class="sw dashed"></span>'; }
+
+  /* ---------------------------------------------------------------- market chart */
+  var MS = { mode: 'segment', segPeriod: 'both', sel: { segment: {}, company: {}, brand: {} } };
+  ['segment', 'company', 'brand'].forEach(function (m) { CFG[m].order.forEach(function (n) { MS.sel[m][n] = true; }); });
+  function period() { return MS.mode === 'segment' ? MS.segPeriod : 'past'; }
+  function years() {
+    var c = CFG[MS.mode], p = period();
+    if (MS.mode !== 'segment' || p === 'both') return c.years.slice();
+    return p === 'past' ? c.years.filter(function (y) { return y <= 2025; }) : c.years.filter(function (y) { return y >= 2025; });
+  }
+  function V(c, n, y) { return c.series[n][c.years.indexOf(y)]; }
+  function selected() { return CFG[MS.mode].order.filter(function (n) { return MS.sel[MS.mode][n]; }); }
+  function sumAt(c, names, y) { return names.reduce(function (s, n) { return s + V(c, n, y); }, 0); }
+  function yl(c, y) { return y + (c.est.indexOf(y) >= 0 ? 'E' : ''); }
+  var SRC_SEG = 'Source · Euromonitor Passport, U.S. hotel sales by segment, current USD, accessed November 2026 · 2012 to 2025 actual, 2026 to 2031 forecast · Luxury uses the series that adds up to the total · Upscale is the total minus the other four segments';
+  var SRC_COMP = 'Source · Euromonitor Passport, company and brand shares, historical owner basis, current USD, accessed November 2026 · 2026E is an estimate · Wyndham in 2017 is Wyndham Worldwide; its 2017 to 2019 growth includes buying La Quinta in 2018';
+  var FLAGSHIP = D.brand.order.filter(function (n) { return D.brand.owner[n] === n; });
+
+  function renderMarket() { marketControls(); marketChart(); marketLegend(); marketReadout(); marketTable(); }
+  function marketControls() {
+    $$('#mk-view button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.mode === MS.mode)); });
+    var p = period();
+    $$('#mk-period button').forEach(function (b) {
+      b.disabled = MS.mode !== 'segment' && b.dataset.period !== 'past';
+      b.setAttribute('aria-pressed', String(b.dataset.period === p));
+    });
+    $('#mk-period [data-period="past"]').textContent = MS.mode === 'segment' ? 'Past · 2012 to 2025' : 'Past · 2017 to 2026E';
+    var c = CFG[MS.mode];
+    $('#mk-chips').innerHTML = c.chipOrder.map(function (n) {
+      return '<button type="button" class="chip" data-name="' + esc(n) + '" aria-pressed="' + (MS.sel[MS.mode][n] ? 'true' : 'false') + '">' + swatch(MS.mode, n) + esc(n) + '</button>';
+    }).join('');
+    var note = MS.mode === 'segment'
+      ? 'Company and brand views cover 2017 to 2026E. Euromonitor does not forecast by company, so the outlook is by segment only.'
+      : MS.mode === 'company'
+        ? 'Outlook and Both are off in this view: Euromonitor does not forecast by company.'
+        : 'The six largest brands in 2025. ' + (FLAGSHIP.length ? joinAnd(FLAGSHIP) + ' here are the flagship brands, not the whole company. ' : '') + 'Outlook and Both are off: Euromonitor does not forecast by brand.';
+    $('#mk-note').textContent = note;
+    $('#mk-ctitle').innerHTML = 'U.S. hotel sales by ' + MS.mode + ' <span class="unit">(USD B, current prices)</span>';
+    $('#mk-legnote').hidden = MS.mode !== 'segment';
+    $('#mk-source').textContent = MS.mode === 'segment' ? SRC_SEG : SRC_COMP;
+  }
+
+  function marketChart() {
+    var box = $('#mk-chart');
+    var W = Math.max(280, Math.floor(box.clientWidth || 600));
+    var narrow = W < 560, H = narrow ? 300 : 360;
+    var c = CFG[MS.mode], ys = years(), names = selected();
+    var n = ys.length, colW = W / n, bw = Math.min(colW * 0.66, 48);
+    var tot = ys.map(function (y) { return sumAt(c, names, y) / 1000; });
+    var top = 54, bot = H - 26;
+    var vmax = Math.max.apply(null, tot) * 1.04 || 1;
+    function Y(v) { return bot - v / vmax * (bot - top); }
+    var nA = ys.filter(function (y) { return y <= c.lastActual; }).length, hasF = nA < n;
+    var s = '';
+    var i20 = ys.indexOf(2020);
+    if (i20 >= 0) {
+      var i21 = ys.indexOf(2021), x0 = i20 * colW, x1 = (i21 >= 0 ? i21 + 1 : i20 + 1) * colW;
+      s += '<rect x="' + x0 + '" y="32" width="' + (x1 - x0) + '" height="' + (bot - 32) + '" class="covid"/>';
+      s += '<text x="' + (x0 + x1) / 2 + '" y="47" text-anchor="middle" class="t-covid">COVID</text>';
+    }
+    function br(xa, xb, t) { var p = Math.min(4, (xb - xa) * 0.06); return '<text x="' + (xa + xb) / 2 + '" y="12" text-anchor="middle" class="t-br">' + t + '</text><path d="M' + (xa + p) + ' 26V19H' + (xb - p) + 'V26" class="br"/>'; }
+    if (nA > 0) s += br(0, nA * colW, 'Actual');
+    if (hasF) {
+      s += br(nA * colW, W, MS.mode === 'segment' ? 'Forecast' : 'Est.');
+      s += '<line x1="' + nA * colW + '" x2="' + nA * colW + '" y1="30" y2="' + bot + '" class="divider"/>';
+    }
+    var labelYears = {}; labelYears[ys[nA - 1]] = 1; labelYears[ys[n - 1]] = 1;
+    var step = colW >= 30 ? 1 : colW >= 18 ? 2 : 3;
+    for (var i = 0; i < n; i++) {
+      var y = ys[i], cx = i * colW + colW / 2, x = cx - bw / 2, acc = 0;
+      names.forEach(function (nm, k) {
+        var v = V(c, nm, y) / 1000, y1 = Y(acc + v), y0 = Y(acc), h = y0 - y1, col = COL[MS.mode][nm];
+        if (col) s += '<rect x="' + x + '" y="' + y1 + '" width="' + bw + '" height="' + Math.max(0, h) + '" style="fill:' + col + '"/>';
+        else s += '<rect x="' + (x + 0.75) + '" y="' + (y1 + 0.75) + '" width="' + Math.max(0, bw - 1.5) + '" height="' + Math.max(0, h - 0.75) + '" class="dash"/>';
+        if (k > 0 && col) s += '<line x1="' + x + '" x2="' + (x + bw) + '" y1="' + y0 + '" y2="' + y0 + '" class="sep"/>';
+        if (labelYears[y] && h >= 16 && bw >= 20) s += '<text x="' + cx + '" y="' + ((y0 + y1) / 2 + 4) + '" text-anchor="middle" class="t-in" style="fill:' + (col && DARK[col] ? 'var(--white)' : 'var(--ink)') + '">' + num(v) + '</text>';
+        acc += v;
+      });
+      if (colW >= 30 || labelYears[y] || i === 0 || y === 2020) s += '<text x="' + Math.min(W - 12, Math.max(12, cx)) + '" y="' + (Y(acc) - 6) + '" text-anchor="middle" class="t-tot">' + num(acc) + '</text>';
+      if ((n - 1 - i) % step === 0) s += '<text x="' + cx + '" y="' + (H - 7) + '" text-anchor="middle" class="t-yr">' + (step > 1 ? "'" + String(y).slice(2) : y) + (c.est.indexOf(y) >= 0 ? 'E' : '') + '</text>';
+    }
+    s += '<line x1="0" x2="' + W + '" y1="' + bot + '" y2="' + bot + '" class="axis"/>';
+    for (var j = 0; j < n; j++) s += '<rect x="' + j * colW + '" y="30" width="' + colW + '" height="' + (bot - 30) + '" class="hit" data-i="' + j + '"/>';
+    box.innerHTML = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="U.S. hotel sales by ' + MS.mode + ', ' + ys[0] + ' to ' + ys[n - 1] + ', in USD billions">' + s + '</svg><div class="tip" hidden></div>';
+    var svg = box.querySelector('svg'), tip = box.querySelector('.tip'), cur = -1;
+    function show(i) {
+      if (i === cur) return;
+      cur = i;
+      $$('.hit', svg).forEach(function (r) { r.classList.toggle('on', +r.dataset.i === i); });
+      var y = ys[i];
+      var rows = names.slice().reverse().map(function (nm) {
+        return '<div class="tr">' + swatch(MS.mode, nm) + '<span class="tn">' + esc(nm) + '</span><span class="tvv">' + num(V(c, nm, y) / 1000, 1) + '</span></div>';
+      }).join('');
+      tip.innerHTML = '<div class="th">' + yl(c, y) + (MS.mode === 'segment' && y > c.lastActual ? ' forecast' : '') + ' · USD B</div>' + rows +
+        '<div class="tr tt"><span></span><span class="tn">Total</span><span class="tvv">' + num(tot[i], 1) + '</span></div>';
+      tip.hidden = false;
+      var tw = tip.offsetWidth, cx = i * colW + colW / 2, left = cx + 14;
+      if (left + tw > W) left = cx - 14 - tw;
+      if (left < 0) left = Math.max(0, W - tw);
+      tip.style.left = left + 'px';
+      tip.style.top = '40px';
+    }
+    function hide() { cur = -1; tip.hidden = true; $$('.hit.on', svg).forEach(function (r) { r.classList.remove('on'); }); }
+    function at(e) { var rc = svg.getBoundingClientRect(); var i = Math.floor((e.clientX - rc.left) / rc.width * n); if (i >= 0 && i < n) show(i); }
+    svg.addEventListener('pointermove', at);
+    svg.addEventListener('pointerdown', at);
+    svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
+  }
+
+  function marketLegend() {
+    var c = CFG[MS.mode], names = selected(), p = period(), all = names.length === c.order.length, spans;
+    if (MS.mode === 'segment') spans = p === 'past' ? [[2012, 2019], [2019, 2025]] : p === 'outlook' ? [[2025, 2031]] : [[2012, 2019], [2019, 2025], [2025, 2031]];
+    else spans = [[2017, 2019], [2019, 2025]];
+    function yy(y) { return "'" + String(y).slice(2); }
+    var share = MS.mode !== 'segment';
+    var t25 = c.total[c.years.indexOf(2025)];
+    function cells(list) {
+      return spans.map(function (sp) { return '<td>' + pct(cagr(sumAt(c, list, sp[0]), sumAt(c, list, sp[1]), sp[1] - sp[0])) + '</td>'; }).join('') +
+        (share ? '<td>' + pct(sumAt(c, list, 2025) / t25) + '</td>' : '');
+    }
+    var head1 = '<tr><th></th><th class="grp" colspan="' + spans.length + '">CAGR</th>' + (share ? '<th></th>' : '') + '</tr>';
+    var head2 = '<tr><th></th>' + spans.map(function (sp) { return '<th>' + yy(sp[0]) + ' to ' + yy(sp[1]) + '</th>'; }).join('') + (share ? '<th>Share 2025</th>' : '') + '</tr>';
+    var rows = '<tr class="total"><td>' + (all ? 'Overall' : 'Selected') + '</td>' + cells(names) + '</tr>';
+    names.slice().reverse().forEach(function (nm) {
+      var hl = MS.mode === 'segment' && nm === 'Upscale';
+      rows += '<tr><td><span class="name' + (hl ? ' hl' : '') + '">' + swatch(MS.mode, nm) + esc(nm) + '</span></td>' + cells([nm]) + '</tr>';
+    });
+    $('#mk-legend').innerHTML = '<table class="leg"><thead>' + head1 + head2 + '</thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  function marketReadout() {
+    var c = CFG[MS.mode], names = selected(), ys = years(), a = ys[0], b = ys[ys.length - 1];
+    var va = sumAt(c, names, a) / 1000, vb = sumAt(c, names, b) / 1000;
+    var all = names.length === c.order.length;
+    var what = all ? (MS.mode === 'segment' ? 'All five segments' : MS.mode === 'company' ? 'All companies' : 'All brands') : joinAnd(names.slice().reverse());
+    $('#mk-readout').innerHTML = '<strong>' + esc(what) + ':</strong> $' + num(va, 1) + 'B in ' + yl(c, a) + ', $' + num(vb, 1) + 'B in ' + yl(c, b) + ', ' + pct(cagr(va, vb, b - a)) + ' a year';
+  }
+
+  function marketTable() {
+    var c = CFG[MS.mode], sel = selected(), names = sel.slice().reverse(), ys = years();
+    var head = names.map(function (n) { return '<th class="num">' + esc(n) + '</th>'; }).join('');
+    var body = ys.map(function (y) {
+      return '<tr><td>' + yl(c, y) + '</td>' + names.map(function (n) { return '<td class="num">' + num(V(c, n, y) / 1000, 1) + '</td>'; }).join('') +
+        '<td class="num"><strong>' + num(sumAt(c, sel, y) / 1000, 1) + '</strong></td></tr>';
+    }).join('');
+    $('#mk-table').innerHTML = '<table class="tbl compact"><thead><tr><th>Year</th>' + head + '<th class="num">Total</th></tr></thead><tbody>' + body + '</tbody></table>';
+  }
+
+  $('#mk-view').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; MS.mode = b.dataset.mode; renderMarket(); });
+  $('#mk-period').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b || b.disabled) return; MS.segPeriod = b.dataset.period; renderMarket(); });
+  $('#mk-chips').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    var set = MS.sel[MS.mode], n = b.dataset.name, count = Object.keys(set).filter(function (k) { return set[k]; }).length;
+    if (set[n]) { if (count > 1) set[n] = false; } else set[n] = true;
+    renderMarket();
+  });
+
+  /* ---------------------------------------------------------------- segment scoring */
+  var WDEF = { size: 20, growth: 20, service: 10, reach: 25, fit: 25 };
+  var WT = { size: 20, growth: 20, service: 10, reach: 25, fit: 25 };
+  function sSize(v) { return v < 10 ? 1 : v < 15 ? 2 : v < 25 ? 3 : v < 50 ? 4 : 5; }
+  function sGrowth(g) { return g < 0.02 ? 1 : g < 0.03 ? 2 : g < 0.04 ? 3 : g < 0.05 ? 4 : 5; }
+  function sSvc(x) { return x < 0.15 ? 1 : x < 0.25 ? 2 : x < 0.35 ? 3 : x < 0.45 ? 4 : 5; }
+  function sTop(x) { return (x === null || x < 0.30) ? 1 : x < 0.45 ? 2 : x < 0.60 ? 3 : x < 0.75 ? 4 : 5; }
+  function scoreRows() {
+    var sum = WT.size + WT.growth + WT.service + WT.reach + WT.fit, aw = WT.size + WT.growth + WT.service, bw = WT.reach + WT.fit;
+    return D.score.map(function (r) {
+      var sc = { size: sSize(r.sales), growth: sGrowth(r.growth), service: sSvc(r.svc), reach: sTop(r.top5), fit: r.fit };
+      var tot = sum ? (WT.size * sc.size + WT.growth * sc.growth + WT.service * sc.service + WT.reach * sc.reach + WT.fit * sc.fit) / sum : 0;
+      var attr = aw ? (WT.size * sc.size + WT.growth * sc.growth + WT.service * sc.service) / aw : 3;
+      var ab = bw ? (WT.reach * sc.reach + WT.fit * sc.fit) / bw : 3;
+      var tier = tot >= 4 - 1e-9 ? 1 : tot >= 3 - 1e-9 ? 2 : 3;
+      return Object.assign({}, r, { sc: sc, tot: tot, attr: attr, ab: ab, tier: tier });
+    }).sort(function (a, b) { return (b.tot - a.tot) || (a.idx - b.idx); });
+  }
+  function hb(s) { return '<span class="hb" role="img" aria-label="' + s + ' of 5" style="--p:' + [0, 0, 25, 50, 75, 100][s] + '%"></span>'; }
+  function cell(s, v, note) { return '<span class="cellv">' + hb(s) + (v ? '<span>' + v + '</span>' : '') + '</span>' + (note ? '<span class="note">' + note + '</span>' : ''); }
+  function renderScores() {
+    var R = scoreRows();
+    var sum = WT.size + WT.growth + WT.service + WT.reach + WT.fit;
+    $('#g-attr').textContent = 'Market attractiveness · ' + Math.round((WT.size + WT.growth + WT.service) / (sum || 1) * 100) + '%';
+    $('#g-ab').textContent = 'Ability to win · ' + Math.round((WT.reach + WT.fit) / (sum || 1) * 100) + '%';
+    $('#w-status').textContent = sum === 100 ? 'Weights add to 100%' : 'Weights add to ' + num(sum) + '%; scores use them in proportion';
+    $('#sc-body').innerHTML = R.map(function (r) {
+      return '<tr class="' + (r.tier === 1 ? 'hl' : '') + '"><td class="seg">' + esc(r.name) + '</td>' +
+        '<td>' + cell(r.sc.size, '$' + num(r.sales, 1) + 'B') + '</td>' +
+        '<td>' + cell(r.sc.growth, pct(r.growth)) + '</td>' +
+        '<td>' + cell(r.sc.service, pct(r.svc, 0) + (r.svcProxy ? '*' : '')) + '</td>' +
+        '<td>' + cell(r.sc.reach, r.top5 === null ? 'n/a' : pct(r.top5, 0)) + '</td>' +
+        '<td>' + cell(r.sc.fit, '', esc(r.fitNote)) + '</td>' +
+        '<td class="num"><strong>' + r.tot.toFixed(2) + '</strong></td>' +
+        '<td><span class="tier t' + r.tier + '">Tier ' + r.tier + '</span></td></tr>';
+    }).join('');
+    var isDef = Object.keys(WDEF).every(function (k) { return WT[k] === WDEF[k]; });
+    var nm = R.map(function (r) { return r.name; });
+    $('#sc-title').textContent = isDef
+      ? 'Upscale is large, growing and concentrated in five groups, so it scores highest, with mid market and luxury next'
+      : nm[0] + ' scores highest with these weights, so we would start there, with ' + lc(nm[1]) + ' and ' + lc(nm[2]) + ' next';
+    $('#sc-sowhat').textContent = isDef
+      ? 'The answer holds: upscale ties or beats every other segment on every criterion except growth, where luxury leads, so it stays first under almost any weights'
+      : 'Where to play with these weights: start with ' + lc(nm[0]) + ', then ' + lc(nm[1]);
+    renderBubble(R);
+  }
+  function renderBubble(R) {
+    var Wd = 400, Hd = 340, x0 = 56, x1 = 384, y0 = 292, y1 = 20;
+    function X(v) { return x0 + (v - 1) / 4 * (x1 - x0); }
+    function Y(v) { return y0 - (v - 1) / 4 * (y0 - y1); }
+    var tc = { 1: 'var(--bronze)', 2: 'var(--slate)', 3: 'var(--steel)' };
+    var s = '<rect x="' + x0 + '" y="' + y1 + '" width="' + (x1 - x0) + '" height="' + (y0 - y1) + '" class="plot"/>';
+    s += '<line x1="' + X(3) + '" x2="' + X(3) + '" y1="' + y1 + '" y2="' + y0 + '" class="mid"/><line x1="' + x0 + '" x2="' + x1 + '" y1="' + Y(3) + '" y2="' + Y(3) + '" class="mid"/>';
+    [1, 3, 5].forEach(function (v) {
+      s += '<text x="' + X(v) + '" y="' + (y0 + 16) + '" class="t-ax" text-anchor="middle">' + v + '</text>';
+      s += '<text x="' + (x0 - 8) + '" y="' + (Y(v) + 4) + '" class="t-ax" text-anchor="end">' + v + '</text>';
+    });
+    s += '<text x="' + (x0 + x1) / 2 + '" y="' + (Hd - 4) + '" class="t-axt" text-anchor="middle">Market attractiveness</text>';
+    s += '<text transform="translate(16 ' + (y0 + y1) / 2 + ') rotate(-90)" class="t-axt" text-anchor="middle">Ability to win</text>';
+    s += '<text x="' + (X(3) + 8) + '" y="' + (y1 + 16) + '" class="t-q hot">Start here</text><text x="' + (x0 + 8) + '" y="' + (y1 + 16) + '" class="t-q">Easy to reach, small</text>';
+    s += '<text x="' + (x1 - 8) + '" y="' + (y0 - 8) + '" class="t-q" text-anchor="end">Attractive, harder to win</text><text x="' + (x0 + 8) + '" y="' + (y0 - 8) + '" class="t-q">Deprioritize</text>';
+    R.slice().sort(function (a, b) { return b.sales - a.sales; }).forEach(function (r) {
+      s += '<circle cx="' + X(r.attr) + '" cy="' + Y(r.ab) + '" r="' + 3.2 * Math.sqrt(r.sales) + '" class="bub" style="fill:' + tc[r.tier] + '"/>';
+    });
+    R.forEach(function (r) {
+      var cx = X(r.attr), cy = Y(r.ab), rad = 3.2 * Math.sqrt(r.sales), left = cx > (x0 + x1) / 2;
+      s += '<text x="' + (left ? cx - rad - 6 : cx + rad + 6) + '" y="' + (cy + 4) + '" class="t-lab" text-anchor="' + (left ? 'end' : 'start') + '">' + esc(r.name) + '</text>';
+    });
+    $('#sc-bubble').innerHTML = '<svg viewBox="0 0 ' + Wd + ' ' + Hd + '" role="img" aria-label="Segments by market attractiveness and ability to win; bubble size shows 2025 sales">' + s + '</svg>';
+  }
+  Object.keys(WDEF).forEach(function (k) {
+    var inp = $('#w-' + k);
+    inp.addEventListener('input', function () {
+      var v = parseFloat(inp.value);
+      if (isNaN(v) || v < 0 || v > 100) { inp.setAttribute('aria-invalid', 'true'); return; }
+      inp.removeAttribute('aria-invalid');
+      WT[k] = v;
+      renderScores();
+    });
+  });
+  $('#w-reset').addEventListener('click', function () {
+    Object.keys(WDEF).forEach(function (k) { WT[k] = WDEF[k]; var i = $('#w-' + k); i.value = WDEF[k]; i.removeAttribute('aria-invalid'); });
+    renderScores();
+  });
+
+  /* ---------------------------------------------------------------- routing */
+  var ROUTES = {
+    'where-ai-breaks': { view: 'ai' }, 'how-the-work-worked': { view: 'ai', anchor: 'how-the-work-worked' },
+    'pattern-1': { view: 'ai', anchor: 'pattern-1' }, 'pattern-2': { view: 'ai', anchor: 'pattern-2' },
+    'hotel-gtm': { view: 'gtm' }, 'gtm-market': { view: 'gtm', anchor: 'gtm-market' }, 'gtm-scoring': { view: 'gtm', anchor: 'gtm-scoring' },
+    'gtm-overview': { view: 'gtm' }, 'gtm-coverage': { view: 'gtm' }, 'gtm-pl': { view: 'gtm' }
+  };
+  var shown = null;
+  function route() {
+    var key = location.hash.replace(/^#/, '');
+    if (!ROUTES[key]) key = 'where-ai-breaks';
+    var r = ROUTES[key];
+    $('#view-ai').hidden = r.view !== 'ai';
+    $('#view-gtm').hidden = r.view !== 'gtm';
+    $$('.topnav a').forEach(function (a) { if (a.dataset.view === r.view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    if (r.view === 'gtm') { renderMarket(); renderScores(); }
+    if (r.anchor) { var t = document.getElementById(r.anchor); if (t) t.scrollIntoView(); }
+    else if (shown !== null && key !== shown) window.scrollTo(0, 0);
+    shown = key;
+  }
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { if (!$('#view-gtm').hidden) marketChart(); }, 120);
+  });
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+
+</body>
+</html>
